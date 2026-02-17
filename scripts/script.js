@@ -1,7 +1,15 @@
 import {fetchRecommendedMovies} from "./modules/api.js";
-import {blanda} from "./modules/api.js";
-fetchRecommendedMovies();
-blanda();
+import {slumpaFem} from "./modules/api.js";
+const allMovies = await fetchRecommendedMovies();
+
+//importerar och anropar funktionerna.
+
+
+const slumpade = await slumpaFem(allMovies);
+// console.log(slumpade);
+
+
+
 
 if(window.location.pathname === '/' || window.location.pathname.includes ('index.html')) {
     console.log('index.html');
@@ -20,3 +28,9 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
 //tanken är nog att använda koden senare. om man är på startsidan -> hämta detta osv.
 
 
+
+for (const movie of slumpade) {
+    const movieCard = document.createElement("section");
+    movieCard.textContent = `${movie.Poster}` ;
+    document.getElementsByClassName("trailers")[0].appendChild(movieCard);
+}

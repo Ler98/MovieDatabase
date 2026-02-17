@@ -1,18 +1,17 @@
 export async function fetchRecommendedMovies() {
-    const response = await fetchData('https://santosnr6.github.io/Data/favoritemovies.json');
-    console.log(response)
-    // return await response.json();
+    const allMovies = await fetchData('https://santosnr6.github.io/Data/favoritemovies.json');
+    return allMovies;
 }
 
-//datan som finns i fetch hamnar i response
-//response.json(); skickar tillbaka datan till den som anropar funktionen
+//2. datan som finns i fetchData hamnar i allMovies
+//console.log(allMovies) skriver ut allMovies i konsoll.
 
 
 export async function fetchData(url) {
     try {
-        const filmer = await fetch(url);
-        const data = await filmer.json();
-        return data;
+        const response = await fetch(url); //ger ett response-object
+        const movies = await response.json(); //json plockar ut själva filmlistan från response
+        return movies;
     } catch(error){
         console.error(error.message);
         return []
@@ -20,26 +19,47 @@ export async function fetchData(url) {
 
 }
 
-    
+//1. fetchData är funktionnamnet och används här och när funktionen anropas. Där funktionen inporteras kan den användas.
+//fetch(url) hämtar movies från nätet.
+//awit response.json() skickar tillbaka movies till den som anropade funktionen.
+
+//felhanterare ifall fel uppstår ex nätverksproblem.
+// return skickar tillbaka en tom lista ist för att sidan krachar.
+
+//export default kan användas en gång.
+//export kan användas fler gånger.
+
+//response innehåller bara paketet från nätverket, inte själva filmerna. 
+//movies innehåller filmlistan
+//när fetchData returnerar listan (movies)så hamnar den i allMovies
+//allMovies = hela listan med filmer från json
 
 
-
-export async function blandade (filmer){
+export async function slumpaFem (movies){
+    // console.log('inne i slumpaFem', movies ? movies.length: "movies är underfinde");
     const femFilmer = [];
-    const slumpaIndex = blandade
-    femFilmer = Math.floor(Math.random() * filmer.length -1);
     
     
     
-    return femFilmer;
-}
+
+
+    for (let i = 0; i < 5; i++) {
+        const movieIndex = Math.floor(Math.random() * movies.length);//movieIndex innehåller ett heltal mellan 0 och längden på movies
+        femFilmer.push(movies[movieIndex])
+    }
+    console.log('Här är fem slumpade filmer:' ,femFilmer)
+    return(femFilmer)
+ }
 
 
 
-  for (let i = 0; i < 5; i++) {
-    Math.floor(Math.random()-1)
-    femFilmer.push(film)
-  }
+//3. funktionen heter slumpaFem och skickar med (movies) från funktionen fetchData.
+//movies blir en lockal variabel automatiskt när det är en parameter. slumpaFem(movies).
+//movies är en tomm låda som väntar på att fyllas när funktionen anropas. slumpaFem(allMovies).
+//allMovies kommer alltså in i functionen när slumpaFem anropas. slumpaFem(allMovies).
+//femFilmer är en tom array som filmerna ska läggas in i med .push .
+//movieIndex är 5 slumpade indexnummer där motsvarande indexnummer i movies läggs in i femFilmer med .push.
+//returnerar femFilmer som skickas tillbaka till anropet.
 
-  
- 
+
+//async oxh await behöver finnas på alla functioner som inte anropas i en funktion och som inte behöver vänta på annan kod.
