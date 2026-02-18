@@ -2,7 +2,7 @@
 ---
 ### modules: funktionella byggstenar
 #### Är det en specifik function på sidan?
-🟢api.js -> pratar med servern
+🟢api.js -> pratar med servern. ska bara hantera data, inte bestämma när eller var något visas på skärmen.
 🟢carousel -> handerar karusell
 🟡search -> handerar söklogik
 

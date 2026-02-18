@@ -82,3 +82,8 @@ body {
     border: none;
     cursor: pointer;
 }
+
+h2{
+    color: var(--text-yellow);
+    text-align: center;
+}
