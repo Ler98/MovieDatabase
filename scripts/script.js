@@ -26,6 +26,28 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
     //tar första filmen i slumpade, sätter den i variabeln movie och positionen i index.
     //anropar funktionen renderTrailer
     //gör samma sak för alla 5 filmer som finns i slumpa. men nästa varv blir det andra filmen i slumpade osv.
+
+    for (const movie of slumpade) {
+    const movieCard = document.createElement("img");
+    movieCard.src = `${movie.trailer_link}` ;
+    document.querySelector(".trailers__container").appendChild(movieCard);
+    }
+
+    for (const movie of slumpadeTjugo) {
+        const movieCard = document.createElement("img");
+        movieCard.src = `${movie.Poster}` ;
+        document.querySelector(".content-wrapper.center").appendChild(movieCard);
+    }
+
+    //4
+    //en for of loop som loopar alla filmer i slumpade.
+    //skapar ett element (img)
+    //lägger in urlen som finns i movie.poster i img. texten är en url för bilden på filmen.
+    //hämtar första elementet med klassen trailers.
+    //lägger in movieCard inuti trailers
+
+    //trailers och content-wrapper center är klassnamn i html
+
     console.log('index.html');
 
 } else if(window.location.pathname.includes('favorites.html')) {
@@ -52,23 +74,4 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
 
 
 
-for (const movie of slumpade) {
-    const movieCard = document.createElement("img");
-    movieCard.src = `${movie.trailer_link}` ;
-    document.querySelector(".trailers").appendChild(movieCard);
-}
 
-for (const movie of slumpadeTjugo) {
-    const movieCard = document.createElement("img");
-    movieCard.src = `${movie.Poster}` ;
-    document.querySelector(".content-wrapper.center").appendChild(movieCard);
-}
-
-//4
-//en for of loop som loopar alla filmer i slumpade.
-//skapar ett element (img)
-//lägger in urlen som finns i movie.poster i img. texten är en url för bilden på filmen.
-//hämtar första elementet med klassen trailers.
-//lägger in movieCard inuti trailers
-
-//trailers och content-wrapper center är klassnamn i html
