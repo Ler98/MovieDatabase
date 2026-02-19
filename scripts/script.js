@@ -1,15 +1,18 @@
 import {fetchRecommendedMovies} from "./modules/api.js";
-import {slumpaFem} from "./modules/api.js";
-import {slumpaTjugo} from "./modules/api.js"
-import { renderTrailer} from "./modules/caroussel.js";
+import {slumpaAntal} from "./modules/api.js"
+import {renderTrailer} from "./modules/caroussel.js";
+import {renderMovies} from "./utils/domUtils.js"
+import {searchMovie} from "./modules/search.js"
 
 //importerar och anropar funktionerna.
 
 const allMovies = await fetchRecommendedMovies();
-const slumpade = await slumpaFem(allMovies);
-const slumpadeTjugo = await slumpaTjugo(allMovies);
-// console.log(slumpade);
-// renderTrailer(movie, num);
+const slumpade = await slumpaAntal(allMovies, 5);
+const slumpadeTjugo = await slumpaAntal(allMovies, 20);
+
+//variablar anropar funktioner?
+
+
 
 
 
@@ -18,19 +21,22 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
     renderTrailer(movie, index);
     });
 
-    // slumpadeTjugo.forEach((movie, index) => {
-    //     console.log('fungerar')
-    // renderTrailer(movie, index);
-    // });
-    //4
-    //tar första filmen i slumpade, sätter den i variabeln movie och positionen i index.
-    //anropar funktionen renderTrailer
-    //gör samma sak för alla 5 filmer som finns i slumpa. men nästa varv blir det andra filmen i slumpade osv.
+    //search
+    document.querySelector(".header__form").addEventListener("submit", (e) => {
+    e.preventDefault(); // stoppar omladdning
+    const searchText = document.querySelector('#searchInput').value;
+    const resultat = searchMovie(allMovies, searchText);
+    renderMovies(resultat);
+    });
+
+    //hämtar klassen .header__form i html och lyssnar på skicka.
+    //hämtar ett id i html som läggs i searText.
+    //allMovies och searchText (texten i input) skickas med i funktionen och läggs in i resultat.
 
     for (const movie of slumpade) {
-    const movieCard = document.createElement("img");
-    movieCard.src = `${movie.trailer_link}` ;
-    document.querySelector(".trailers__container").appendChild(movieCard);
+        const movieCard = document.createElement("iframe");
+        movieCard.src = `${movie.Trailer_link}` ;
+        document.querySelector(".trailers__container").appendChild(movieCard);
     }
 
     for (const movie of slumpadeTjugo) {
@@ -66,12 +72,19 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
 
 
 
- 
 
 
+//överblick
+// Tänk på allMovies som en stor låda med alla filmer.
+// Den innehåller alltså alla filmobjekt som du hämtade från JSON:en.
 
+// Den funktionen tar lådan med alla filmer (allMovies) och filtrerar ut bara de filmer som matchar söktexten.
+// Resultatet blir en ny låda med bara de filmer som matchar.
 
-
-
-
+// När du skickar in resultat i renderMovies så går funktionen igenom varje film i den nya lådan.
+// För varje film:
+// Skapar en section
+// Lägger till titel, bild och trailer i den section
+// Stoppar sectionen i container på sidan
+// Alltså: bara filmerna i resultat syns på sidan, inte alla filmer i allMovies.
 
