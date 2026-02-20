@@ -2,20 +2,20 @@
 ---
 ### modules: funktionella byggstenar
 #### Är det en specifik function på sidan?
-🟢api.js -> pratar med servern. ska bara hantera data, inte bestämma när eller var något visas på skärmen.
+🟢api.js -> pratar med servern. ska bara hantera data, inte bestämma när eller var något visas på skärmen. ingen dom
 🟢carousel -> handerar karusell
-🟡search -> handerar söklogik
+🟡search -> handerar söklogik, filtrering, sortering. jobba med data inte dom
 
 ---
 ### utils: hjälpfunktioner
 ### Är detta en hjälpfunktion som kan användas överallt?
-🟠domUtils.js -> createElement, addClass, removeClass
+🟠domUtils.js -> createElement, addClass, removeClass. visar på skärmen
 🟠utils.js -> formatDate(), 
 
 ---
 ### 🟢script: startmotor, kopplar ihop allt
 ### Startar detta sidan eller kopplar den ihop saker?
-importerar moduler, starta functioner, lyssna på event, bestämma vad som ska hända
+importerar moduler, starta functioner, lyssna på event, bestämma vad som ska hända och när
 
 
 

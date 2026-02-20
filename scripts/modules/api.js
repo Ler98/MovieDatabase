@@ -2,9 +2,14 @@ export async function fetchRecommendedMovies() {
     const allMovies = await fetchData('https://santosnr6.github.io/Data/favoritemovies.json');
     return allMovies;
 }
-
 //2. datan som finns i fetchData hamnar i allMovies
 //console.log(allMovies) skriver ut allMovies i konsoll.
+
+
+export async function fetchAllMovies(searchText) {
+    const omdbMovies = await fetchData (`http://www.omdbapi.com/?apikey=36ea5417&s=${searchText}`);
+    return omdbMovies?.Search || [];
+}
 
 
 export async function fetchData(url) {
@@ -15,7 +20,7 @@ export async function fetchData(url) {
         return movies;
     } catch(error){
         console.error(error.message);
-        return []
+        return null
     }
 
 }
@@ -25,7 +30,7 @@ export async function fetchData(url) {
 //awit response.json() skickar tillbaka movies till den som anropade funktionen.
 
 //felhanterare ifall fel uppstår ex nätverksproblem.
-// return skickar tillbaka en tom lista ist för att sidan krachar.
+// return null. Innan returnerade jag en tom array, men omdb är ett objekt så det funkar inte.
 
 //export default kan användas en gång.
 //export kan användas fler gånger.
@@ -37,7 +42,6 @@ export async function fetchData(url) {
 
 
 export async function slumpaAntal (movies, count){
-    // console.log('inne i slumpaAntal', movies ? movies.length: "movies är underfinde");
     const slumpadeFilmer = [];
     
     for (let i = 0; i < count; i++) {
@@ -45,12 +49,10 @@ export async function slumpaAntal (movies, count){
         slumpadeFilmer.push(movies[movieIndex])
     }
     console.log(`Här är ${count} filmer:` ,slumpadeFilmer)
-    return(slumpadeFilmer)
-
+    return(slumpadeFilmer);
  }
 
 // export async function slumpaTjugo (movies){
-//     // console.log('inne i slumpaTjugo', movies ? movies.length: "movies är underfinde");
 //     const TjugoFilmer = [];
     
     
@@ -65,15 +67,15 @@ export async function slumpaAntal (movies, count){
 
 
 //3. funktionen heter slumpaAntal och skickar med (movies) från funktionen fetchData.
-//movies och count blir en lockal variabel automatiskt när det är en parameter. slumpaAntal(movies).
-//movies är en tomm låda som väntar på att fyllas när funktionen anropas. slumpaAntal(allMovies).
+//movies och count blir en lockal variabel automatiskt när det är en parameter. slumpaAntal(movies, count).
+//movies och count är en tomm låda som väntar på att fyllas när funktionen anropas. slumpaAntal(allMovies, 5/ 20).
 //allMovies kommer alltså in i functionen när slumpaAntal anropas. slumpaAntal(allMovies).
-//femFilmer är en tom array som filmerna ska läggas in i med .push .
-//movieIndex är 5 slumpade indexnummer där motsvarande indexnummer i movies läggs in i femFilmer med .push.
-//returnerar femFilmer som skickas tillbaka till anropet.
+//slumpadeFilmer är en tom array som filmerna ska läggas in i med .push .
+//movieIndex är ett index per varv i loopen. loopen går 5 eller 20 varv. de läggs in i slumpadeFilmer med .push.
+//returnerar slumpadeFilmer som skickas tillbaka till anropet.
 
 
-//async oxh await behöver finnas på alla functioner som inte anropas i en funktion och som inte behöver vänta på annan kod.
+
 
 
 

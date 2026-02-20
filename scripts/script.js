@@ -1,4 +1,5 @@
 import {fetchRecommendedMovies} from "./modules/api.js";
+import {fetchAllMovies} from "./modules/api.js";
 import {slumpaAntal} from "./modules/api.js"
 import {renderTrailer} from "./modules/caroussel.js";
 import {renderMovies} from "./utils/domUtils.js"
@@ -7,6 +8,7 @@ import {searchMovie} from "./modules/search.js"
 //importerar och anropar funktionerna.
 
 const allMovies = await fetchRecommendedMovies();
+// const omdbMovies = await fetchAllMovies(searchText);
 const slumpade = await slumpaAntal(allMovies, 5);
 const slumpadeTjugo = await slumpaAntal(allMovies, 20);
 
@@ -22,16 +24,30 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
     });
 
     //search
-    document.querySelector(".header__form").addEventListener("submit", (e) => {
+    document.querySelector(".header__form").addEventListener("submit", async (e) => {
     e.preventDefault(); // stoppar omladdning
+
     const searchText = document.querySelector('#searchInput').value;
-    const resultat = searchMovie(allMovies, searchText);
-    renderMovies(resultat);
+
+    if (!searchText) return; // valfritt, stoppa tom sökning
+
+    const omdbMovies = await fetchAllMovies(searchText); // skickar texten
+    renderMovies(omdbMovies); // renderar direkt
     });
+
+    // document.querySelector(".header__form").addEventListener("submit", (e) => {
+    // e.preventDefault(); // stoppar omladdning
+    // const searchText = document.querySelector('#searchInput').value;
+    // const resultat = searchMovie(omdbMovies, searchText);
+    // renderMovies(resultat);
+    // });
+
 
     //hämtar klassen .header__form i html och lyssnar på skicka.
     //hämtar ett id i html som läggs i searText.
     //allMovies och searchText (texten i input) skickas med i funktionen och läggs in i resultat.
+
+
 
     for (const movie of slumpade) {
         const movieCard = document.createElement("iframe");
