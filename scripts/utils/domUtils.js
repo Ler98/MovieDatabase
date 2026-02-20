@@ -1,6 +1,6 @@
 
 export function renderMovies (allMovies) {
-    const container = document.querySelector(".content-wrapper")
+    const container = document.querySelector(".search-results-movies")
     container.innerHTML = "";
 
     for(let movie of allMovies) {

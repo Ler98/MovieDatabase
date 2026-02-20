@@ -31,8 +31,9 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
 
     if (!searchText) return; // valfritt, stoppa tom sökning
 
-    const omdbMovies = await fetchAllMovies(searchText); // skickar texten
-    renderMovies(omdbMovies); // renderar direkt
+    // const omdbMovies = await fetchAllMovies(searchText); // skickar texten
+    // renderMovies(omdbMovies); // renderar direkt
+    window.location.href = `search.html?query=${searchText}`
     });
 
     // document.querySelector(".header__form").addEventListener("submit", (e) => {
@@ -80,7 +81,15 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
 
 } else if(window.location.pathname.includes('search.html')) {
     console.log('search.html');
-}
+
+    const params = new URLSearchParams(window.location.search);
+    const searchText = params.get("query");
+
+    if (searchText) {
+        const omdbMovies = await fetchAllMovies(searchText);
+        renderMovies(omdbMovies);
+    }}
+
 
 //just nu skrivs det bara ut vilken sida man är på i konsoll.
 //tanken är nog att använda koden senare. om man är på startsidan -> hämta detta osv.
