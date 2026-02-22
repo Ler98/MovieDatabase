@@ -98,5 +98,6 @@ h2 {
     margin: 2rem;
     font-size: 30px;
     grid-column: 4 span;
+    text-align: center;
 }
 
