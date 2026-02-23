@@ -11,6 +11,7 @@ const allMovies = await fetchRecommendedMovies();
 // const omdbMovies = await fetchAllMovies(searchText);
 const slumpade = await slumpaAntal(allMovies, 5);
 const slumpadeTjugo = await slumpaAntal(allMovies, 20);
+console.log("Antal filmer i allMovies:", allMovies.length);
 
 //variablar anropar funktioner?
 
@@ -29,7 +30,7 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
 
     const searchText = document.querySelector('#searchInput').value;
 
-    if (!searchText) return; // valfritt, stoppa tom sökning
+    if (!searchText) return; // stoppa tom sökning
 
     // const omdbMovies = await fetchAllMovies(searchText); // skickar texten
     // renderMovies(omdbMovies); // renderar direkt
@@ -57,8 +58,16 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
     }
 
     for (const movie of slumpadeTjugo) {
-        const movieCard = document.createElement("img");
-        movieCard.src = `${movie.Poster}` ;
+        const movieCard = document.createElement("section");
+        const movieCardImg = document.createElement("img");
+        const movieCardText = document.createElement("h4");
+        movieCard.classList.add("movie-card");
+        movieCardText.classList.add("movie-card-text")
+        movieCardImg.classList.add("movie-card-img");
+        movieCardText.innerText = movie.Title;
+        movieCardImg.src = `${movie.Poster}` ;
+        movieCard.appendChild(movieCardImg);
+        movieCard.appendChild(movieCardText);
         document.querySelector(".content-wrapper.center").appendChild(movieCard);
     }
 
@@ -70,6 +79,8 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
     //lägger in movieCard inuti trailers
 
     //trailers och content-wrapper center är klassnamn i html
+
+    //card, img och text läggs till i samma.
 
     console.log('index.html');
 
@@ -87,12 +98,24 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
 
     if (searchText) {
         const omdbMovies = await fetchAllMovies(searchText);
-        renderMovies(omdbMovies);
+
+        const unikID = new Set();
+        const unikaResultat = omdbMovies.filter(movie => {
+            if (unikID.has(movie.imdbID)) return false;
+            unikID.add(movie.imdbID);
+            return true;
+        });
+        console.log(unikaResultat);
+        renderMovies(unikaResultat);
     }}
 
 
-//just nu skrivs det bara ut vilken sida man är på i konsoll.
-//tanken är nog att använda koden senare. om man är på startsidan -> hämta detta osv.
+//window.location.search är delen av URL:en som kommer efter frågetecknet (?)
+//query används för att kunna skicka data mellan sidor och göra länkar delbara och spara historik.
+// men namnet query är valfritt.
+//Anropar funktion fetchAllMovies med det sökord användaren skrev (searchText).
+//await betyder att JavaScript väntar på att API:et ska svara innan det går vidare.
+//Resultatet (omdbMovies) är en lista/array med filmer som matchar sökordet.
 
 
 

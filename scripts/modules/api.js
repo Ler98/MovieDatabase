@@ -42,28 +42,21 @@ export async function fetchData(url) {
 
 
 export async function slumpaAntal (movies, count){
+    
     const slumpadeFilmer = [];
     
-    for (let i = 0; i < count; i++) {
+    while (slumpadeFilmer.length < count) {
         const movieIndex = Math.floor(Math.random() * movies.length);//movieIndex innehåller ett heltal mellan 0 och längden på movies
-        slumpadeFilmer.push(movies[movieIndex])
+     if (!slumpadeFilmer.some (m => m.imdbID === movies[movieIndex].imdbID)) {
+            slumpadeFilmer.push(movies[movieIndex])
     }
-    console.log(`Här är ${count} filmer:` ,slumpadeFilmer)
-    return(slumpadeFilmer);
- }
 
-// export async function slumpaTjugo (movies){
-//     const TjugoFilmer = [];
-    
-    
-//     for (let i = 0; i < 20; i++) {
-//         const movieIndex2 = Math.floor(Math.random() * movies.length);//movieIndex innehåller ett heltal mellan 0 och längden på movies
-//         TjugoFilmer.push(movies[movieIndex2])
-//     }
-//     console.log('Här är tjugo slumpade filmer:' ,TjugoFilmer)
-//     return(TjugoFilmer)
+    }
+    return(slumpadeFilmer)
+}
 
-//  }
+//ändrade till while-loop för att kunna kolla så filmerna inte är dubbletter.
+// Det vet vi inte hur många ggr vi kollar drf blir det while-loop
 
 
 //3. funktionen heter slumpaAntal och skickar med (movies) från funktionen fetchData.

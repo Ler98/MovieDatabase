@@ -3,6 +3,7 @@
 
 export function searchMovie(omdbMovies, searchText) {
     if (!searchText) return [];
+
     return omdbMovies.filter(movie =>
      typeof movie.Title === "string" &&  movie.Title.toLowerCase().includes(searchText.toLowerCase().trim())
 )};
