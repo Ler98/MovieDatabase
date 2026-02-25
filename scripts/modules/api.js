@@ -1,3 +1,4 @@
+//de slumpade filmer och trailers på index.html
 export async function fetchRecommendedMovies() {
     const allMovies = await fetchData('https://santosnr6.github.io/Data/favoritemovies.json');
     return allMovies;
@@ -6,15 +7,25 @@ export async function fetchRecommendedMovies() {
 //console.log(allMovies) skriver ut allMovies i konsoll.
 
 
+//sökresultaten
 export async function fetchAllMovies(searchText) {
     const omdbMovies = await fetchData (`http://www.omdbapi.com/?apikey=36ea5417&s=${searchText}`);
     return omdbMovies?.Search || [];
 }
 
 
+export async function fetchMovieDetails(movieImdbId) {
+    if (!movieImdbId) return {} //om ingen id
+    const omdbMoviesDetails = await fetchData (`http://www.omdbapi.com/?apikey=36ea5417&plot=full&i=${movieImdbId}`);
+    return omdbMoviesDetails || {};
+}   //fetchData anropas och skickar med urlen till funktionen fetchData (här nedanför).
+
+//felhantering för alla fetchData
 export async function fetchData(url) {
     try {
         const response = await fetch(url); //ger ett response-object
+        // const text = await response.text();
+        // console.log("RAW response:", text);
         const movies = await response.json(); //json plockar ut själva filmlistan från response
         console.log('det här är movies: ' ,movies)
         return movies;
@@ -22,7 +33,7 @@ export async function fetchData(url) {
         console.error(error.message);
         return null
     }
-
+    
 }
 
 //1. fetchData är funktionnamnet och används här och när funktionen anropas. Där funktionen inporteras kan den användas.

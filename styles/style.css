@@ -85,21 +85,42 @@ main {
     cursor: pointer;
 }
 
-.center{
+.index-grid{
     text-align: center;
     display: grid;
     grid-template-columns: repeat(4,1fr);
     gap: 3rem 2rem;
-    padding: 5rem 10rem 10rem 10rem;
+    padding: 5rem 10rem 10rem 10rem; /* space emellan korden */
     
 }
 
-h2 {
+.moviePage {
+    text-align: center;
+    gap: 3rem 2rem;
+    max-width: 1200px;
+    padding: 5rem 0rem 0rem 0rem; /*få ner kortet på movie.html*/
+    
+    
+}
+
+h2{
     color: var(--text-yellow);
     margin: 2rem;
     font-size: 30px;
-    grid-column: 4 span;
+    grid-column:span 4;
     text-align: center;
+}
+
+h4{
+    margin: 1rem;
+    font-size: 20px;
+    
+}
+
+p {
+    margin: 1rem;
+    font-size: 15px;
+    
 }
 .content-wrapper {
     
@@ -113,32 +134,75 @@ h2 {
     object-fit: cover;
     border-top-left-radius : 0.8rem;
     border-top-right-radius : 0.8rem;
-     /* background-color: white;
-    border-radius: 0.8rem; */
-    /* border-bottom-left-radius : 0.8rem;
-    border-bottom-right-radius : 0.8rem; */
-
 }
 
-/* section > div > img {
-    width: 100%;
-    height: 100%;
+.movie-card-img--storlek {
+    width: 40%;
     object-fit: cover;
     border-top-left-radius : 0.8rem;
-    border-top-right-radius : 0.8rem;
-} */
+    border-bottom-left-radius : 0.8rem;
+    border-top-right-radius : 0rem;
+    
+}
+
 
 .movie-card {
     width: 100%;
-    height: 100%;
-    padding: 0rem 0rem 4rem 0rem; 
+    /* height: 100%; */
+     padding: 0rem 0rem 4rem 0rem; /* grått under kort*/
     background-color: rgb(132, 132, 132);
     border-radius: 0.8rem;
+    cursor: pointer;
+}
+
+.movie-card--no-hover-flex {
+    cursor: default;
+    /* background: inherit !important; */
+    background-color: rgb(132, 132, 132);
+    display: flex;
+    flex-direction: row;
+    padding: 0rem 0rem 0rem 0rem;
+    /* margin: 6rem 0rem 0rem 0rem; */
     
+    
+    
+    
+    
+    
+    
+}
+
+.movie-card:hover {
+    background: var(--text-yellow);
 }
 
 .movie-card-text {
     margin: 0.5rem 0rem 0.5rem 1rem;
     text-align: left;
     color: var(--primary-bg);
+}
+
+
+/* @MEDIA */
+@media (max-width: 1100px) {
+    .index-grid {
+        grid-template-columns: repeat(2, 1fr);
+        
+    }
+    h2 {
+        grid-column:span 2;
+    }
+}
+
+@media (max-width: 600px) {
+    .index-grid {
+        grid-template-columns: 1fr;
+    }
+    h2 {
+        grid-column:span 1;
+    }
+
+    .trailers{
+        display: none;
+    }
 }

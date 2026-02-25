@@ -9,7 +9,7 @@
 ---
 ### utils: hjälpfunktioner
 ### Är detta en hjälpfunktion som kan användas överallt?
-🟠domUtils.js -> createElement, addClass, removeClass. visar på skärmen
+🟡domUtils.js -> createElement, addClass, removeClass. visar på skärmen
 🟠utils.js -> formatDate(), 
 
 ---
@@ -17,7 +17,10 @@
 ### Startar detta sidan eller kopplar den ihop saker?
 importerar moduler, starta functioner, lyssna på event, bestämma vad som ska hända och när
 
-
+---
+### Components: byggerkortet
+### sånt som kan ligga i domUtils ligger här för mer specifik mapp. hur något ser ut typ.
+🟠movieCard.js -> det som kan ligga i domUtils men hör till korten.
 
 
 

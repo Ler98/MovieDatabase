@@ -6,55 +6,33 @@ export function renderMovies (allMovies) {
     const container = document.querySelector(".search-results-movies")
     container.innerHTML = "";
 
-
     for(let movie of allMovies) {
 
         if (movie.Title) {
-        const movieCard = document.createElement("section");
-        const movieCardImg = document.createElement("img");
-        const movieCardText = document.createElement("h4");
-        movieCard.classList.add("movie-card");
-        movieCardText.classList.add("movie-card-text");
-        movieCardImg.classList.add("movie-card-img");
+            const movieCard = document.createElement("section");
+            const movieCardImg = document.createElement("img");
+            const movieCardText = document.createElement("h4");
+            movieCard.classList.add("movie-card");
+            movieCardText.classList.add("movie-card-text");
+            movieCardImg.classList.add("movie-card-img");
 
-        movieCardImg.alt = movie.Title || "Poster saknas";
+            movieCard.dataset.id = movie.imdbID;
 
-        movieCardText.innerText = movie.Title;
-        
-        movieCardImg.src = `${movie.Poster}` ;
-        movieCard.appendChild(movieCardImg);
-        movieCard.appendChild(movieCardText);
-        // document.querySelector(".search-results-movies").appendChild(movieCard);
-        container.appendChild(movieCard);
-        }
-       
-        
+            movieCardImg.alt = `Poster saknas på filmen:  ${movie.Title}` || "Poster saknas";
 
-        //Title
-        // const titleText = movie.Title || 'ingen title';
-        //     movieItem.innerText = titleText;
-        
-        
-        
+            movieCardText.innerText = movie.Title;
+            
+            movieCardImg.src = `${movie.Poster}` ;
+            movieCard.appendChild(movieCardImg);
+            movieCard.appendChild(movieCardText);
+            container.appendChild(movieCard);
+            console.log('jag är innuti if(movie.title)')
+        } 
+    }
+};
 
-    //     //Poster
-    //     if (movie.Poster) {
-    //         const img = document.createElement("img");
-    //         img.src = movie.Poster;
-    //         movieItem.appendChild(img);
-    //     }
 
-    //     //Trailer
-    //     if (movie.Trailer_link) {
-    //         const iframe = document.createElement("iframe");
-    //         iframe.src = movie.Trailer_link;
-    //         movieItem.appendChild(iframe);
-    //     }
-    //     container.appendChild(movieItem);
-    // }
-    
-}};
-
+document.querySelectorAll(".movie-card-img").forEach(img => console.log(img.alt));
 //allMovies är en parameter (local variabel).
 //container.innerHTML = ""; = tömmer .content-wrapper.
 //loopar igenom varje movie i allMovies och skapar en section
@@ -64,4 +42,4 @@ export function renderMovies (allMovies) {
 //allt läggs i en section
 
 
-document.querySelectorAll(".movie-card-img").forEach(img => console.log(img.alt));
+    
