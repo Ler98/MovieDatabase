@@ -69,20 +69,36 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
     for (const movie of slumpadeTjugo) {
         const movieCard = document.createElement("section");
         const movieCardImg = document.createElement("img");
-        const movieCardText = document.createElement("h4");
-        movieCard.classList.add("movie-card");
+        const movieCardText = document.createElement("h2");
+        const movieCardImgSection = document.createElement("section");
+        const movieCardImgStar = document.createElement("img");
+        const movieCardButton = document.createElement("button");
+
 
         movieCard.dataset.id = movie.imdbID;
 
+        
+        movieCard.classList.add("movie-card");
         movieCardText.classList.add("movie-card-text")
+        movieCardButton.classList.add("movie-card-button")
         movieCardImg.classList.add("movie-card-img");
+        movieCardImgSection.classList.add("movie-card-img-section")
+        
 
+        
         movieCardText.innerText = movie.Title;
-        movieCardImg.src = `${movie.Poster}` ;
+        movieCardButton.innerText = "Lägg till i favorit"
 
+        movieCardImg.src = `${movie.Poster}` ;
+        movieCardImg.alt = `Poster saknas på filmen:  ${movie.Title}` || "Poster saknas";
+
+        
         movieCard.appendChild(movieCardImg);
         movieCard.appendChild(movieCardText);
-        document.querySelector(".content-wrapper.center").appendChild(movieCard);
+        movieCardImgSection.appendChild(movieCardButton)
+        movieCard.appendChild(movieCardImgSection);
+        
+        document.querySelector(".index-grid").appendChild(movieCard);
         console.log('jag är i if(const movie of slumpadeTjugo)')
         }
         //4
@@ -98,14 +114,49 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
 
         //klicka på film
         container.addEventListener("click", (e) => {
-        // document.querySelector(".center").addEventListener("click", (e) => {
+        
+            const favBtn = e.target.closest(".movie-card-button");
+            if (favBtn) {
+                e.stopPropagation() //stoppar klick från att gå vidare
+
+                const card = favBtn.closest(".movie-card");
+                const imdbId = card.dataset.id;
+
+
+                //hämta gamla favoriter
+                const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+
+                if (favorites.includes(imdbId)) {
+                    // TA BORT
+                    const updatedFavorites = favorites.filter(id => id !== imdbId);
+                    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+                    favBtn.innerText = "Lägg till i favoriter";
+                    console.log("Borttagen från favoriter");
+                } else {
+                    // LÄGG TILL
+                    favorites.push(imdbId);
+                    localStorage.setItem("favorites", JSON.stringify(favorites));
+                    favBtn.innerText = "Ta bort från favoriter";
+                    console.log("Tillagd i favoriter");
+                }
+
+
+                console.log("sparat favorit");
+                return; //så den inte går visare och öppnar filmen
+            }
+            
+
+            if (!e.target.classList.contains ("movie-card-img")) return; // stoppar omladdning
+
             const card = e.target.closest(".movie-card");
-            if (!card) return; // stoppar omladdning
 
             const imdbId = card.dataset.id;
             console.log("du klickar", imdbId);
 
+            localStorage.setItem('activeMovie', imdbId);// till favoriter, ska nog ligga i funktionen till knappen.
             window.location.href = `movie.html?query=${imdbId}`
+            
         });
         //Container som innehåller klassen content-wrapper.center
         //lyssnar på klick på hela containern. mindre kod och bättre än om vi ska lynnsa på varje kort.
@@ -121,7 +172,35 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
 
 
     } else if(window.location.pathname.includes('favorites.html')) {
-        console.log('favorites.html');
+            console.log('favorites.html');
+
+            console.log('favorites.html');
+
+            const container = document.querySelector(".index-grid");
+
+            const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+            for (const imdbId of favorites) {
+            const movie = await fetchMovieDetails(imdbId);
+
+            const movieCard = document.createElement("section");
+            const movieCardImg = document.createElement("img");
+            const movieCardText = document.createElement("h2");
+
+            movieCard.classList.add("movie-card");
+            movieCardImg.classList.add("movie-card-img");
+            movieCardText.classList.add("movie-card-text");
+
+            movieCard.dataset.id = movie.imdbID;
+
+            movieCardImg.src = movie.Poster;
+            movieCardText.innerText = movie.Title;
+
+            movieCard.appendChild(movieCardImg);
+            movieCard.appendChild(movieCardText);
+
+            container.appendChild(movieCard);
+        }
 
     } else if(window.location.pathname.includes('movie.html')) {
         console.log('movie.html');

@@ -4,7 +4,6 @@ export async function fetchRecommendedMovies() {
     return allMovies;
 }
 //2. datan som finns i fetchData hamnar i allMovies
-//console.log(allMovies) skriver ut allMovies i konsoll.
 
 
 //sökresultaten

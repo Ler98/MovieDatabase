@@ -12,38 +12,54 @@ export function renderOmdbMovies (omdbMoviesDetails) {
     if(omdbMoviesDetails.Title) {
         const movieCard = document.createElement("section");
         const movieCardImg = document.createElement("img");
-        const movieCardText = document.createElement("h4");
+        const movieCardTitle = document.createElement("h1");
         const movieCardInfo = document.createElement("p");
-        const movieCardYear = document.createElement("p");
-        const movieCardActors = document.createElement("p");
+        const movieCardYear = document.createElement("h2");
+        const movieCardActors = document.createElement("h2");
+        const movieCardTextWrapp = document.createElement("section");
+        const movieCardTextSection = document.createElement("section")
         
 
-        movieCard.classList.add("movie-card");
-        movieCard.classList.add("movie-card--no-hover-flex");
-        movieCardText.classList.add("movie-card-text")
+        movieCard.classList.add("movie-card--no-hover");
+        movieCard.classList.add("movie-card--vertical");
+        movieCardTitle.classList.add("movie-card-title")
+        movieCardTitle.classList.add("movie-card-title--black")
         movieCardImg.classList.add("movie-card-img");
         movieCardImg.classList.add("movie-card-img--storlek");
         movieCardInfo.classList.add("movie-card-info");
         movieCardYear.classList.add("movie-card-year");
         movieCardActors.classList.add("movie-card.Actors");
 
+        movieCard.classList.add("movie-card", "movie-card--horizontal");
+        movieCardTextWrapp.classList.add("movie-card-text-wrapp");
+        movieCardTextSection.classList.add("movieCardTextSection");
+
 
         movieCardImg.alt = `Poster saknas på filmen:  ${omdbMoviesDetails.Title}` || "Poster saknas";
 
-        movieCardText.innerText = omdbMoviesDetails.Title;
-        movieCardActors.innerText = omdbMoviesDetails.Actors;
-        movieCardYear.innerText = omdbMoviesDetails.Year;
-        movieCardImg.src = omdbMoviesDetails.Poster;
+        movieCardTitle.innerText = omdbMoviesDetails.Title;
+        movieCardActors.innerText = `Actors: ${omdbMoviesDetails.Actors}`;
+        movieCardYear.innerText = `Year: ${omdbMoviesDetails.Year}`;
         movieCardInfo.innerText = omdbMoviesDetails.Plot;
+
+        movieCardImg.src = omdbMoviesDetails.Poster;
+        movieCardImg.alt = `Poster saknas för ${omdbMoviesDetails.Title}`;        
         
         
 
         movieCard.appendChild(movieCardImg);
-        movieCard.appendChild(movieCardText);
-        movieCard.appendChild(movieCardActors);
-        movieCard.appendChild(movieCardYear);
-        movieCard.appendChild(movieCardInfo);
+
+        movieCard.appendChild(movieCardTextWrapp);
+        movieCardTextWrapp.appendChild(movieCardTextSection);
         
+
+        movieCardTextSection.appendChild(movieCardTitle);
+        movieCardTextSection.appendChild(movieCardActors);
+        movieCardTextSection.appendChild(movieCardYear);
+        movieCardTextSection.appendChild(movieCardInfo);
+        
+      
+
         
         container.appendChild(movieCard);
         
