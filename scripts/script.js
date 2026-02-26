@@ -6,6 +6,7 @@ import {slumpaAntal} from "./modules/api.js"
 import {renderTrailer} from "./modules/caroussel.js";
 import {renderMovies} from "./utils/domUtils.js"
 import {renderOmdbMovies} from "./components/movieCard.js"
+import {renderFavorites} from "./components/favorites.js"
 
 
 //variablar anropar funktioner
@@ -147,15 +148,15 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
             }
             
 
-            if (!e.target.classList.contains ("movie-card-img")) return; // stoppar omladdning
+            // if (!e.target.classList.contains ("movie-card-img")) return; // stoppar omladdning
 
-            const card = e.target.closest(".movie-card");
+            // const card = e.target.closest(".movie-card");
 
-            const imdbId = card.dataset.id;
-            console.log("du klickar", imdbId);
+            // const imdbId = card.dataset.id;
+            // console.log("du klickar", imdbId);
 
-            localStorage.setItem('activeMovie', imdbId);// till favoriter, ska nog ligga i funktionen till knappen.
-            window.location.href = `movie.html?query=${imdbId}`
+            // localStorage.setItem('activeMovie', imdbId);// till favoriter, ska nog ligga i funktionen till knappen.
+            // window.location.href = `movie.html?query=${imdbId}`
             
         });
         //Container som innehåller klassen content-wrapper.center
@@ -173,34 +174,35 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
 
     } else if(window.location.pathname.includes('favorites.html')) {
             console.log('favorites.html');
+            renderFavorites();
 
             console.log('favorites.html');
 
-            const container = document.querySelector(".index-grid");
+        //     const container = document.querySelector(".index-grid");
 
-            const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+        //     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-            for (const imdbId of favorites) {
-            const movie = await fetchMovieDetails(imdbId);
+        //     for (const imdbId of favorites) {
+        //     const movie = await fetchMovieDetails(imdbId);
 
-            const movieCard = document.createElement("section");
-            const movieCardImg = document.createElement("img");
-            const movieCardText = document.createElement("h2");
+        //     const movieCard = document.createElement("section");
+        //     const movieCardImg = document.createElement("img");
+        //     const movieCardText = document.createElement("h2");
 
-            movieCard.classList.add("movie-card");
-            movieCardImg.classList.add("movie-card-img");
-            movieCardText.classList.add("movie-card-text");
+        //     movieCard.classList.add("movie-card");
+        //     movieCardImg.classList.add("movie-card-img");
+        //     movieCardText.classList.add("movie-card-text");
 
-            movieCard.dataset.id = movie.imdbID;
+        //     movieCard.dataset.id = movie.imdbID;
 
-            movieCardImg.src = movie.Poster;
-            movieCardText.innerText = movie.Title;
+        //     movieCardImg.src = movie.Poster;
+        //     movieCardText.innerText = movie.Title;
 
-            movieCard.appendChild(movieCardImg);
-            movieCard.appendChild(movieCardText);
+        //     movieCard.appendChild(movieCardImg);
+        //     movieCard.appendChild(movieCardText);
 
-            container.appendChild(movieCard);
-        }
+        //     container.appendChild(movieCard);
+        // }
 
     } else if(window.location.pathname.includes('movie.html')) {
         console.log('movie.html');
@@ -246,8 +248,7 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
                 return true;
             });
             console.log(unikaResultat);
-            renderMovies(unikaResultat);
-            // renderOmdbMovies(omdbMovies);     
+            renderMovies(unikaResultat);     
         }
     })();
 
@@ -282,32 +283,6 @@ if (window.location.pathname.includes("search.html")) {
     //new Set() -> skapar mig en tom låda som bara tar unika saker
     //unikId.add(x) -> lägg x i lådan, men om det redan finns, gör inget.
     
-
-        //     if (movie.Title) {
-        //         const movieCard = document.createElement("section");
-        //         const movieCardImg = document.createElement("img");
-        //         const movieCardText = document.createElement("h4");
-        //         movieCard.classList.add("movie-card");
-        //         movieCardText.classList.add("movie-card-text");
-        //         movieCardImg.classList.add("movie-card-img");
-
-        //         movieCard.dataset.id = movie.ID;
-
-        //         movieCardImg.alt = `Poster saknas på filmen:  ${movie.Title}` || "Poster saknas";
-
-        //         movieCardText.innerText = movie.Title;
-                
-        //         movieCardImg.src = `${movie.Poster}` ;
-        //         movieCard.appendChild(movieCardImg);
-        //         movieCard.appendChild(movieCardText);
-        //         container.appendChild(movieCard);
-        //         console.log('jag är innuti if(movie.title)')
-        //     } 
-        //     renderMovies(unikaResultat);
-        // }
-
-
-
 
 
 
