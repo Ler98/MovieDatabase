@@ -148,15 +148,15 @@ if(window.location.pathname === '/' || window.location.pathname.includes ('index
             }
             
 
-            // if (!e.target.classList.contains ("movie-card-img")) return; // stoppar omladdning
+            if (!e.target.classList.contains ("movie-card-img")) return; // stoppar omladdning
 
-            // const card = e.target.closest(".movie-card");
+            const card = e.target.closest(".movie-card");
 
-            // const imdbId = card.dataset.id;
-            // console.log("du klickar", imdbId);
+            const imdbId = card.dataset.id;
+            console.log("du klickar", imdbId);
 
-            // localStorage.setItem('activeMovie', imdbId);// till favoriter, ska nog ligga i funktionen till knappen.
-            // window.location.href = `movie.html?query=${imdbId}`
+            localStorage.setItem('activeMovie', imdbId);// till favoriter, ska nog ligga i funktionen till knappen.
+            window.location.href = `movie.html?query=${imdbId}`
             
         });
         //Container som innehåller klassen content-wrapper.center

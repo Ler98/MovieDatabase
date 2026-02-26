@@ -11,7 +11,7 @@ export async function renderFavorites() {
     const movie = await fetchMovieDetails(imdbId);
 
     const movieCard = document.createElement("section");
-     const movieCardImg = document.createElement("img");
+    const movieCardImg = document.createElement("img");
     const movieCardText = document.createElement("h2");
 
     movieCard.classList.add("movie-card");
